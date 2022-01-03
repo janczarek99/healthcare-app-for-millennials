@@ -1,0 +1,9 @@
+.navbar {
+    border-radius: 8px;
+    border: 1px;
+    margin-left: 0.3rem;
+  }
+
+  .navbar-brand{
+    margin-left: 1rem;
+  }
