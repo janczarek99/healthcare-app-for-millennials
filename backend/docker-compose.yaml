@@ -1,0 +1,44 @@
+version: '3.6'
+
+services:
+  healthcare-api-db:
+    restart: always
+    image: postgres:11
+    ports:
+      - "5432:5432"
+    expose:
+      - "5432"
+    networks:
+      - healthcare-net
+    environment:
+      - POSTGRES_HOST=localhost:5432
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=healthcare_api_db
+
+    volumes:
+      - ./initdb.sh:/docker-entrypoint-initdb.d/initdb.sh
+
+  healthcare-api:
+    build:
+      context: .
+    depends_on:
+      - healthcare-api-db
+    ports:
+      - "9999:9999"
+    expose:
+      - "9999"
+    volumes:
+      - ./src/:/app/src/
+    networks:
+      - healthcare-net
+    command: >
+      bash -c "wait-for-it healthcare-api-db:5432 -- python run.py"
+
+networks:
+  healthcare-net:
+    name: healthcare_network
+
+
+# alembic upgrade head &&
+      # python seeds/seed.py &&

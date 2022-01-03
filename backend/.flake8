@@ -1,0 +1,20 @@
+[flake8]
+max-line-length = 100
+max-complexity = 8
+
+ignore =
+    W291
+
+exclude =
+    .git,
+    __pycache__,
+    .mypy_cache,
+    build,
+    dist,
+    env,
+    .env,
+    venv,
+    .venv,
+
+per-file-ignores =
+    */__init__.py:E402, F401
