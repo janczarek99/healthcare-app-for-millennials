@@ -15,11 +15,11 @@ RUN pip install --no-cache -r requirements.txt
 WORKDIR /app
 
 # Alembic
-# COPY alembic.ini .
-# COPY ./alembic ./alembic
+COPY alembic.ini .
+COPY ./migrations ./migrations
 
 # Seeds
-# COPY ./seeds ./seeds/
+COPY seed_database.py seed_database.py
 
 # Application
 COPY ./src ./src/

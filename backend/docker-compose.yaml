@@ -28,17 +28,22 @@ services:
       - "9999:9999"
     expose:
       - "9999"
+    environment:
+      - POSTGRES_HOST=healthcare-api-db
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=healthcare_api_db
     volumes:
       - ./src/:/app/src/
     networks:
       - healthcare-net
     command: >
-      bash -c "wait-for-it healthcare-api-db:5432 -- python run.py"
+      bash -c "wait-for-it healthcare-api-db:5432 --
+      alembic upgrade head &&
+      python seed_database.py &&
+      python run.py"
 
 networks:
   healthcare-net:
     name: healthcare_network
-
-
-# alembic upgrade head &&
-      # python seeds/seed.py &&
