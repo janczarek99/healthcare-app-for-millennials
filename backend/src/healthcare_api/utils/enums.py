@@ -1,10 +1,14 @@
 from enum import Enum
-from typing import List, Any
+from typing import List, Any, Tuple
 
 from src.settings import settings
 
 
-class BaseEnum(Enum):
+class CustomVisionModels(Enum):
+    LUNG_CANCER = "LUNG_CANCER"
+    PNEUMONIA = "PNEUMONIA"
+    BRAIN_TUMOUR = "BRAIN_TUMOUR"
+
     @classmethod
     def get_names(cls) -> List[str]:
         return [str(e.name) for e in cls]
@@ -13,12 +17,12 @@ class BaseEnum(Enum):
     def get_values(cls) -> List[Any]:
         return [e.value for e in cls]
 
-
-class CustomVisionModels(BaseEnum):
-    LUNG_CANCER = settings.LUNG_CANCER_CV_URL
-    PNEUMONIA = settings.PNEUMONIA_CV_URL
-    BRAIN_TUMOUR = settings.BRAIN_TUMOUR_CV_URL
+    @property
+    def url(self):
+        return eval(f"settings.{self.name}_CV_URL")
 
 
-class AzureStorageEntityTypes(BaseEnum):
+class AzureStorageEntityTypes(Enum):
     DOCUMENTS = "documents"
+    PHOTOS = "photos"
+

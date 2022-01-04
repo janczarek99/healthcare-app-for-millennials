@@ -27,7 +27,7 @@ def get_user(username: str) -> UserSchema:
 
 def current_user(token: str = Depends(get_auth_token)) -> UserSchema:
     if settings.AUTHORIZATION_OFF:
-        return UserSchema(id=0, username="no-auth-user", password="X"*12, active=True)
+        return UserSchema(id=0, username="no-auth-user", password="X" * 12, active=True)
 
     try:
         payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])

@@ -16,6 +16,18 @@ class CreateUserException(HTTPException):
         )
 
 
+class CannotCreateObjectException(HTTPException):
+    def __init__(self):
+        super().__init__(
+            detail={
+                "status": "Bad request.",
+                "title": "Cannot create object.",
+                "detail": "Cannot create object.",
+            },
+            status_code=HTTPStatus.BAD_REQUEST,
+        )
+
+
 class ValidationErrorException(HTTPException):
     def __init__(self, message: str):
         super().__init__(

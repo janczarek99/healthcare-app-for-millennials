@@ -10,10 +10,13 @@ from src.settings import settings
 
 class AzureOCRClient:
     def __init__(
-        self, azure_ocr_endpoint: str = settings.AZURE_OCR_ENDPOINT, azure_ocr_sub_key: str = settings.AZURE_OCR_KEY
+        self,
+        azure_ocr_endpoint: str = settings.AZURE_OCR_ENDPOINT,
+        azure_ocr_sub_key: str = settings.AZURE_OCR_KEY,
     ) -> None:
         self._ocr_client = ComputerVisionClient(
-            endpoint=azure_ocr_endpoint, credentials=CognitiveServicesCredentials(subscription_key=azure_ocr_sub_key) # noqa
+            endpoint=azure_ocr_endpoint,
+            credentials=CognitiveServicesCredentials(subscription_key=azure_ocr_sub_key),  # noqa
         )
 
     def get_text_from_image(self, file: SpooledTemporaryFile) -> str:
@@ -26,7 +29,7 @@ class AzureOCRClient:
 
             if read_result.status == OperationStatusCodes.succeeded:
                 for text_result in read_result.analyze_result.read_results:
-                    result_lines += "\n".join(text_result.lines)
+                    result_lines += "\n".join([line.text for line in text_result.lines])
                 break
 
             time.sleep(1)
@@ -35,6 +38,6 @@ class AzureOCRClient:
 
     def _get_operation_id(self, file: SpooledTemporaryFile) -> str:
         file.seek(0)
-        response = self._ocr_client.read_in_stream(file.read(), raw=True)
+        response = self._ocr_client.read_in_stream(file, raw=True)
         operation_id = response.headers["Operation-Location"]
         return operation_id.split("/")[-1]

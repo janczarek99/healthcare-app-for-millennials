@@ -9,10 +9,9 @@ SCRIPT_NAME = "DATABASE_SEEDER"
 DB_DATA = {
     "users": [
         {
-            "id": 1,
             "active": True,
             "username": "testuser",
-            "password": "$2b$12$ysPNOXRm7dBZ73Yxv6oWYeREGNZJPf9sI9V8dJHsXCFC1qoWjqfHG"  # "testpassword"
+            "password": "$2b$12$ysPNOXRm7dBZ73Yxv6oWYeREGNZJPf9sI9V8dJHsXCFC1qoWjqfHG",  # "testpassword"
         }
     ]
 }
