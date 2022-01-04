@@ -1,8 +1,13 @@
 import {Container, Row, CardGroup} from "react-bootstrap";
 import {CustomCard} from "../CustomCard";
 import { NavigationBar } from "../NavigationBar";
+import { Navigate } from "react-router-dom";
 
-export function HeatlhcareMainView() {
+export function HealthcareMainView() {
+    
+    if (!localStorage.getItem('token')){
+        return <Navigate to="/login"/>;
+    } 
     return (
         <>
             <NavigationBar></NavigationBar>
