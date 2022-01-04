@@ -3,7 +3,6 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, UploadFile, File
 
 from src.deps import get_azure_storage_client, get_azure_ocr_client
-from src.exceptions import UnauthorizedException
 from src.healthcare_api.schemas.user import UserSchema
 from src.healthcare_api.utils.authentication import current_user
 from src.healthcare_api.utils.azure_blob_storage_client import AzureBlobStorageClient
