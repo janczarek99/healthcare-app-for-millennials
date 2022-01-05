@@ -16,13 +16,14 @@ class Photo(Base):
     __tablename__ = "photos"
 
     MEDIUM_SIZE_STR = 255
+    LONG_SIZE_STR = 1500
 
     id = Column(UUID(as_uuid=True), default=uuid4, primary_key=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     name = Column(String(MEDIUM_SIZE_STR), nullable=False)
     blob_path = Column(String(MEDIUM_SIZE_STR), nullable=False)
     model_type = Column(Enum(CustomVisionModels), nullable=False)
-    model_result = Column(String(MEDIUM_SIZE_STR))
+    model_result = Column(String(LONG_SIZE_STR), nullable=False)
 
     @classmethod
     def get_photos_for_user(cls, user_id: int, options=None) -> List[PhotoSchema]:
@@ -49,7 +50,12 @@ class Photo(Base):
 
     @classmethod
     def add(
-        cls, user_id: int, name: str, blob_path: str, model_type: CustomVisionModels, model_result: str
+        cls,
+        user_id: int,
+        name: str,
+        blob_path: str,
+        model_type: CustomVisionModels,
+        model_result: str,
     ) -> PhotoSchema:
         new_photo = Photo(
             user_id=user_id,

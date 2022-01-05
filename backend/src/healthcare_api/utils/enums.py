@@ -18,11 +18,13 @@ class CustomVisionModels(Enum):
         return [e.value for e in cls]
 
     @property
-    def url(self):
-        return eval(f"settings.{self.name}_CV_URL")
+    def get_request_parameters(self) -> Tuple[str, str]:
+        iteration_no = settings.dict().get(f"AZURE_CV_MODEL_{self.name}_ITERATION")
+        project_id = settings.dict().get(f"AZURE_CV_MODEL_{self.name}_PROJECT_ID")
+
+        return f"Iteration{iteration_no}", project_id
 
 
 class AzureStorageEntityTypes(Enum):
     DOCUMENTS = "documents"
     PHOTOS = "photos"
-

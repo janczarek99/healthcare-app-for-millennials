@@ -43,9 +43,14 @@ class Settings(BaseSettings):
     AZURE_OCR_KEY: str = ""
 
     # Azure custom vision models
-    LUNG_CANCER_CV_URL: str = ""
-    PNEUMONIA_CV_URL: str = ""
-    BRAIN_TUMOUR_CV_URL: str = ""
+    AZURE_CV_ENDPOINT: str = ""
+    AZURE_CV_KEY: str = ""
+    AZURE_CV_MODEL_PNEUMONIA_ITERATION: int = 1
+    AZURE_CV_MODEL_PNEUMONIA_PROJECT_ID: str = ""
+    AZURE_CV_MODEL_LUNG_CANCER_ITERATION: int = 1
+    AZURE_CV_MODEL_LUNG_CANCER_PROJECT_ID: str = ""
+    AZURE_CV_MODEL_BRAIN_TUMOUR_ITERATION: int = 2
+    AZURE_CV_MODEL_BRAIN_TUMOUR_PROJECT_ID: str = ""
 
     class Config:
         env_file = ".env"

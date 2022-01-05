@@ -1,15 +1,14 @@
+import json
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, Body, UploadFile, File
-from fastapi.exceptions import RequestValidationError
 
-from src.deps import get_azure_storage_client, get_azure_ocr_client
-from src.exceptions import ValidationErrorException
+from src.deps import get_azure_storage_client, get_azure_cv_client
 from src.healthcare_api.models.photo import Photo
 from src.healthcare_api.schemas.user import UserSchema
 from src.healthcare_api.utils.authentication import current_user
 from src.healthcare_api.utils.azure_blob_storage_client import AzureBlobStorageClient
-from src.healthcare_api.utils.azure_ocr_client import AzureOCRClient
+from src.healthcare_api.utils.azure_custom_vision_client import AzureCustomVisionClient
 from src.healthcare_api.utils.enums import CustomVisionModels, AzureStorageEntityTypes
 from src.healthcare_api.utils.photos import convert_file_to_html_base64
 
@@ -55,19 +54,23 @@ async def add_new_photo(
     photo_name: str = Body(..., alias="photoName"),
     model_type: CustomVisionModels = Body(..., alias="modelType"),
     azure_storage_client: AzureBlobStorageClient = Depends(get_azure_storage_client),
+    azure_cv_client: AzureCustomVisionClient = Depends(get_azure_cv_client),
     user: UserSchema = Depends(current_user),
 ):
-    # blob_path = azure_storage_client.upload_file(
-    #     user_id=user.id, entity=AzureStorageEntityTypes.PHOTOS.value, file=uploaded_file.file
-    # )
-    blob_path = "xxx"
+    blob_path = azure_storage_client.upload_file(
+        user_id=user.id, entity=AzureStorageEntityTypes.PHOTOS.value, file=uploaded_file.file
+    )
+
+    classification_results = azure_cv_client.classify_image_file(
+        classification_model=model_type, file=uploaded_file.file
+    )
 
     new_photo = Photo.add(
         user_id=user.id,
         name=photo_name,
         blob_path=blob_path,
         model_type=CustomVisionModels(model_type),
-        model_result=""
+        model_result=json.dumps(classification_results),
     )
 
     return new_photo
