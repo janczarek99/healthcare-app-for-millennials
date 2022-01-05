@@ -5,7 +5,7 @@ import "./NavigationBar.css";
 
 export function NavigationBar(isLoggedIn) {
   return (
-    <div class="navbar">
+    <div className="navbar">
       <Navbar bg="light" expand="lg" className="border border-dark">
         <LinkContainer to="/">
           <Navbar.Brand>Healthcare for millenials</Navbar.Brand>
