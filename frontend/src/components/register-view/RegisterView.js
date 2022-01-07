@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { NavigationBar } from "../NavigationBar";
-import "./LoginView.css";
+import "./RegisterView.css";
 import Snackbar from '@mui/material/Snackbar';
 import Slide from '@mui/material/Slide';
 import Alert from '@mui/material/Alert';
@@ -10,28 +10,32 @@ function TransitionUp(props) {
     return <Slide {...props} direction="up" />;
   }
 
-export function LoginView(props) {
+export function RegisterView(props) {
+  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn'));
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [redirect, setRedirect] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(
-    localStorage.getItem("isLoggedIn")
-  );
+
   const [transition, setTransition] = useState(() => TransitionUp);
   const [showError, setShowError] = useState(false);
   const [error, setError] = useState("");
+  const [showSuccess, setShowSuccess] = useState(false);
+
   const openError = () => {
     setShowError(true);
     setTimeout(() => setShowError(false),2000)
   }
 
+  const openSuccess = () => {
+    setShowSuccess(true);
+    setTimeout(() => setShowSuccess(false),2000)
+  }
+
   const submit = async (e) => {
     e.preventDefault();
  
-    const response = await fetch("http://localhost:9999/authenticate", {
+    const response = await fetch("http://localhost:9999/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      credentials: "include",
       body: JSON.stringify({
         username,
         password,
@@ -41,40 +45,26 @@ export function LoginView(props) {
     const content = await response.json();
     if (content.detail){
         console.log("FAILURE");
+        console.log(content.detail);
         openError();
-        switch (content.detail.status) {
-            case "Not found.":
-                setError("User not found!");
-                break;
-            case "Forbidden.":
-                setError("Wrong password!");
+        switch (content.detail.title) {
+            case "Cannot create user":
+                setError("Cannot create user.");
                 break;
             default:
-                setError("Something went wrong, try again!")
+                setError("Something went wrong, try again!");
         }
     } else {
-        setRedirect(true);
-        localStorage.setItem("token", content.accessToken);
-        localStorage.setItem("isLoggedIn", true);
+        openSuccess();
     }
   };
-
-  if (redirect === true) {
-    return (
-      <Navigate
-        to={{
-          pathname: "/",
-        }}
-      />
-    );
-  }
 
   return (
     <>
       <NavigationBar isLoggedIn={isLoggedIn} />
-      <div className="login-box">
+      <div className="register-box">
         <form onSubmit={submit}>
-          <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
+          <h1 className="h3 mb-3 fw-normal">Create Account</h1>
           <input
             type="username"
             className="form-control"
@@ -94,7 +84,7 @@ export function LoginView(props) {
           />
 
           <button className="w-100 btn btn-lg btn-primary" type="submit">
-            Sign in
+            Register
           </button>
         </form>
       </div>
@@ -105,6 +95,15 @@ export function LoginView(props) {
       >
         <Alert severity="error" variant="filled" sx={{ width: "100%" }}>
           {error}
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        open={showSuccess}
+        TransitionComponent={transition}
+        key="2"
+      >
+        <Alert severity="success" variant="filled" sx={{ width: "100%" }}>
+          Account created successfully!
         </Alert>
       </Snackbar>
     </>

@@ -19,7 +19,9 @@ export function NavigationBar(isLoggedIn) {
             <Navbar.Brand>Login</Navbar.Brand>
           </LinkContainer>
         )}
-
+        <LinkContainer to="/register">
+          <Navbar.Brand>Register</Navbar.Brand>
+        </LinkContainer>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">

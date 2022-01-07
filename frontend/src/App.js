@@ -6,6 +6,7 @@ import { DocumentsView } from './components/documents-view/DocumentsView';
 import { DiagnosisView } from './components/diagnosis-view/DiagnosisView';
 import { LoginView } from './components/login-view/LoginView';
 import { LogoutView } from './components/logout-view/LogoutView';
+import { RegisterView } from './components/register-view/RegisterView';
 
 function App(props) {
 
@@ -16,6 +17,7 @@ function App(props) {
             <Route exact path="/" element={<HealthcareMainView />} />
             <Route exact path="/login" element={<LoginView/>} />
             <Route exact path="/logout" element={<LogoutView/>} />
+            <Route exact path="/register" element={<RegisterView/>} />
             <Route exact path="/documents" element={<DocumentsView/>} />
             <Route exact path="/diagnosis" element={<DiagnosisView/>} />
           </Routes> 
