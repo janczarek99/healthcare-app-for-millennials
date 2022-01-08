@@ -55,6 +55,7 @@ export function LoginView(props) {
     } else {
         setRedirect(true);
         localStorage.setItem("token", content.accessToken);
+        console.log(localStorage.getItem('token'))
         localStorage.setItem("isLoggedIn", true);
     }
   };

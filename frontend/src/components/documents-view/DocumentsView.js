@@ -122,7 +122,7 @@ export function DocumentsView() {
         <Grid container spacing={2}>
           <Grid item xs={6}>
             {userDocuments ?
-              <CustomList documents={userDocuments} handleOpen={handleOpenDocument}></CustomList>
+              <CustomList keyword="documents" data={userDocuments} handleOpen={handleOpenDocument}></CustomList>
               : <Box sx={{
                 width: 350,
                 height: 100,

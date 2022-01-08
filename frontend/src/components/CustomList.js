@@ -24,13 +24,13 @@ export default function CustomList(props) {
         }}>
       <Grid item xs={12}>
         <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
-          Uploaded documents
+          Uploaded {props.keyword}
         </Typography>
-        {props.documents.length > 0 ? <></> : <h6>You don't have any documents.</h6>}
+        {props.data.length > 0 ? <></> : <h6>You don't have any {props.keyword}.</h6>}
         <List style={{ maxHeight: "70vh", overflow: 'auto' }}>
-          {props.documents.map((document) => (
+          {props.data.map((entry) => (
               <ListItem
-              key={document.id}
+              key={entry.id}
               secondaryAction={
                 <IconButton edge="end" aria-label="delete">
                   <DeleteIcon />
@@ -44,8 +44,8 @@ export default function CustomList(props) {
               </ListItemAvatar>
               <ListItemButton >
         <ListItemText 
-          onClick={() => props.handleOpen(document)}
-          primary={document.name}
+          onClick={() => props.handleOpen(entry)}
+          primary={entry.name}
           secondary={
             <React.Fragment>
               <Typography
@@ -55,7 +55,7 @@ export default function CustomList(props) {
                 color="text.primary"
               >
               </Typography>
-              {document.ocredText.substring(0, descLength) + '...'}
+              {entry.ocredText ? entry.ocredText.substring(0, descLength) + '...' : entry.modelType}
             </React.Fragment>
           }
         />
