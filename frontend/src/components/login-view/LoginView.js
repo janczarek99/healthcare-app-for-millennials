@@ -28,7 +28,7 @@ export function LoginView(props) {
   const submit = async (e) => {
     e.preventDefault();
  
-    const response = await fetch("http://localhost:9999/authenticate", {
+    const response = await fetch("https://healthcare-for-millennials-api.westeurope.azurecontainer.io/authenticate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
@@ -55,7 +55,6 @@ export function LoginView(props) {
     } else {
         setRedirect(true);
         localStorage.setItem("token", content.accessToken);
-        console.log(localStorage.getItem('token'))
         localStorage.setItem("isLoggedIn", true);
     }
   };

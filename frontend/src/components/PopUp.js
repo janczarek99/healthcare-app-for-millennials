@@ -15,14 +15,32 @@ export default function PopUp(props) {
   const handleClose = props.handleClose;
   const [image, setImage] = useState(null);
 
+  const [body, setBody] = useState(props.text);
   let description = "Document description:";
-  if (type === "photos") {
-    description = "Diagnosis:";
+
+  const changeDiagnosisText = () => {
+    const json = JSON.parse(body);
+    var max = 0;
+    var saved = "";
+    for (var key in json){
+      var value = json[key];
+      if(value > max){
+        saved = key;
+        max = value;
+      }
+    }
+    console.log(saved);
+    if(saved === "Negative" || saved === "normal"){
+      setBody("You are healthy.");
+    } else {
+      var diseaseName = saved.replace(/-/g, ' ');
+      setBody(`You might have "${diseaseName}", please consult your specialist.`);
+    }
   }
 
   const getImage = async () => {
     const response = await fetch(
-      "http://localhost:9999/" + type + "/" + data.id,
+      "https://healthcare-for-millennials-api.westeurope.azurecontainer.io/" + type + "/" + data.id,
       {
         method: "GET",
         headers: { Authorization: "Bearer " + token },
@@ -32,13 +50,16 @@ export default function PopUp(props) {
     const content = await response.json();
 
     setImage(content);
-    console.log(content);
   };
 
   useEffect(() => {
     getImage();
+    if (type === "photos") {
+      description = "Diagnosis:";
+      changeDiagnosisText();
+    }
   }, []);
-
+  
   return (
     <div className="pop-up">
       <DialogTitle sx={{ m: 0, p: 2 }}>
@@ -69,7 +90,7 @@ export default function PopUp(props) {
         >
           {description}
         </Typography>
-        <Typography gutterBottom>{data.ocredText}</Typography>
+        <Typography gutterBottom>{body}</Typography>
       </DialogContent>
       <DialogActions>
         <Button autoFocus onClick={handleClose}>

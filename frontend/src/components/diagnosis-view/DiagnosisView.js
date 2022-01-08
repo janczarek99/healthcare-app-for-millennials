@@ -66,14 +66,13 @@ export function DiagnosisView() {
     }, []);
 
     const getPhotos = async () => {
-        const response = await fetch('http://localhost:9999/photos', {
+        const response = await fetch('https://healthcare-for-millennials-api.westeurope.azurecontainer.io/photos', {
             method: 'GET',
             headers: { 'Authorization': 'Bearer ' + token },
             credentials: 'include'
 
         });
         const content = await response.json()
-        console.log(content);
         setUserPhotos(content);
     };
 
@@ -85,7 +84,7 @@ export function DiagnosisView() {
         formdata.append("uploadedFile", uploadedFile);
         formdata.append("photoName", photoName);
         formdata.append("modelType", modelType);
-        const response = await fetch('http://localhost:9999/photos', {
+        const response = await fetch('https://healthcare-for-millennials-api.westeurope.azurecontainer.io/photos', {
             method: 'POST',
             headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') },
             body: formdata,
@@ -94,8 +93,6 @@ export function DiagnosisView() {
         });
 
         const content = await response.json();
-        console.log(content);
-
         setHasUploaded(true);
 
         getPhotos();
@@ -180,8 +177,7 @@ export function DiagnosisView() {
                                                     style={{ display: "none" }}
                                                     id="contained-button-file"
                                                     type="file"
-                                                    onChange={(e) => {
-                                                        console.log(e.target.files[0]);
+                                                    onChange={(e) => {                                                       
                                                         setUploadedFile(null);
                                                         setUploadedFile(e.target.files[0]);
                                                     }}
@@ -235,6 +231,7 @@ export function DiagnosisView() {
                     </Grid>
                 </Grid>
             </Container>
+            {isPopUpOpen === true && <PopUp type={"photos"} data={selectedPhoto} text={selectedPhoto.modelResult} handleClose={handleClosePhoto}/>}
         </>
     );
 }

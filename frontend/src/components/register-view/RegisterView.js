@@ -33,7 +33,7 @@ export function RegisterView(props) {
   const submit = async (e) => {
     e.preventDefault();
  
-    const response = await fetch("http://localhost:9999/register", {
+    const response = await fetch("https://healthcare-for-millennials-api.westeurope.azurecontainer.io/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -45,7 +45,6 @@ export function RegisterView(props) {
     const content = await response.json();
     if (content.detail){
         console.log("FAILURE");
-        console.log(content.detail);
         openError();
         switch (content.detail.title) {
             case "Cannot create user":

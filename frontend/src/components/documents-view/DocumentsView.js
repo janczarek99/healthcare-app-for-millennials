@@ -50,14 +50,13 @@ export function DocumentsView() {
   }
 
   const getDocuments = async () => {
-    const response = await fetch('http://localhost:9999/documents', {
+    const response = await fetch('https://healthcare-for-millennials-api.westeurope.azurecontainer.io/documents', {
       method: 'GET',
       headers: { 'Authorization': 'Bearer ' + token },
       credentials: 'include'
 
     });
     const content = await response.json()
-    console.log(content);
     setUserDocuments(content);
   };
 
@@ -73,7 +72,7 @@ export function DocumentsView() {
     var formdata = new FormData();
     formdata.append("uploadedFile", uploadedFile);
     formdata.append("documentName", documentName);
-    const response = await fetch('http://localhost:9999/documents', {
+    const response = await fetch('https://healthcare-for-millennials-api.westeurope.azurecontainer.io/documents', {
       method: 'POST',
       headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') },
       body: formdata,
@@ -82,10 +81,7 @@ export function DocumentsView() {
     });
 
     const content = await response.json();
-    console.log(content);
-
     setHasUploaded(true);
-
     setIsFetching(false);
     getDocuments();
   };
@@ -169,7 +165,6 @@ export function DocumentsView() {
                           id="contained-button-file"
                           type="file"
                           onChange={(e) => {
-                            console.log(e.target.files[0]);
                             setUploadedFile(null);
                             setUploadedFile(e.target.files[0]);
                           }}
@@ -206,7 +201,7 @@ export function DocumentsView() {
           </Grid>
         </Grid>
       </Container>
-      {isPopUpOpen === true && <PopUp type={"documents"} data={selectedDocument} handleClose={handleCloseDocument}/>}
+      {isPopUpOpen === true && <PopUp type={"documents"} data={selectedDocument} text={selectedDocument.ocredText} handleClose={handleCloseDocument}/>}
     </>
   );
 }
