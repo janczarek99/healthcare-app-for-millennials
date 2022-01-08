@@ -15,7 +15,8 @@ import ListItemButton from '@mui/material/ListItemButton';
 
 
 export default function CustomList(props) {
-    const descLength = 60;
+  const descLength = 60;
+
   return (
     <Box sx={{ 
         marginLeft: "10px",
@@ -41,8 +42,9 @@ export default function CustomList(props) {
                   <FolderIcon />
                 </Avatar>
               </ListItemAvatar>
-              <ListItemButton>
-        <ListItemText
+              <ListItemButton >
+        <ListItemText 
+          onClick={() => props.handleOpen(document)}
           primary={document.name}
           secondary={
             <React.Fragment>

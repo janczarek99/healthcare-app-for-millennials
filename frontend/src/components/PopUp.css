@@ -1,0 +1,21 @@
+.pop-up {
+    border-radius: 3pt;
+    box-shadow: 0 0 0 1pt grey;
+    position: fixed; 
+    width: 50%; 
+    height: 55%; 
+    top: 10%;
+    left: 20%;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.8); 
+    z-index: 2;
+    overflow: auto;
+    flex-wrap: wrap;
+  }
+
+  .image-container {
+    width: "auto";
+    height: "auto";
+    max-width: 80%;
+  }

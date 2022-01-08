@@ -13,6 +13,7 @@ import CardContent from '@mui/material/CardContent';
 
 import Snackbar from '@mui/material/Snackbar';
 import Slide from '@mui/material/Slide';
+import PopUp from "../PopUp";
 
 function TransitionUp(props) {
   return <Slide {...props} direction="up" />;
@@ -31,10 +32,22 @@ export function DocumentsView() {
   const [hasUploaded, setHasUploaded] = React.useState(false)
   const [transition, setTransition] = React.useState(() => TransitionUp);
 
+  const [isPopUpOpen, setIsPopUpOpen] = useState(false);
+  const [selectedDocument, setSelectedDocument] = useState(null);
+
   const handleClose = () => {
     setIsProcessing(false);
     setHasUploaded(false)
   };
+
+  const handleOpenDocument = (document) =>{
+    setSelectedDocument(document);
+    setIsPopUpOpen(true);
+  }
+
+  const handleCloseDocument = () =>{
+    setIsPopUpOpen(false);
+  }
 
   const getDocuments = async () => {
     const response = await fetch('http://localhost:9999/documents', {
@@ -82,7 +95,7 @@ export function DocumentsView() {
   }
   return (
     <>
-      <NavigationBar isLoggedIn={isLoggedIn} />
+      <NavigationBar isLoggedIn={isLoggedIn} />     
       <div>
       <Snackbar
         open={isProcessing}
@@ -109,7 +122,7 @@ export function DocumentsView() {
         <Grid container spacing={2}>
           <Grid item xs={6}>
             {userDocuments ?
-              <CustomList documents={userDocuments}></CustomList>
+              <CustomList documents={userDocuments} handleOpen={handleOpenDocument}></CustomList>
               : <Box sx={{
                 width: 350,
                 height: 100,
@@ -193,6 +206,7 @@ export function DocumentsView() {
           </Grid>
         </Grid>
       </Container>
+      {isPopUpOpen === true && <PopUp type={"documents"} data={selectedDocument} handleClose={handleCloseDocument}/>}
     </>
   );
 }
