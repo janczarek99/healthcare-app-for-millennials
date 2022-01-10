@@ -15,6 +15,7 @@
     - [Custom Vision Prediction](#custom-vision-prediction)
     - [Container Registry](#container-registry)
     - [Container Instances](#container-instances)
+    - [App Service](#app-service)
   - [Sources](#sources)
 
 ## Description
@@ -72,7 +73,7 @@ Both services were published in form of an API.
 
 Communication with them is orchestrated by yet another API, written in Python using FastAPI Framework. It also exchanges information with two other Azure Services - Database for PostgreSQL and Blob Storage. The latter stores uploaded documentation and images, the former links to that data, user accounts and results returned by Cognitive Services (extracted text, predictions). API was published in form of a docker container, built with Container Registry and deployed through Container Instances.
 
-In order to make app more secure and allow for encrypted communication backend was put behind a NGINX reverse proxy running on a Ubuntu Virtual Machine.
+In order to make app more secure and allow for encrypted communication, backend was put behind a NGINX reverse proxy running on a Ubuntu Virtual Machine.
 
 For user-system interaction a web app was created, written in React, deployed through App Service.
 
@@ -106,7 +107,7 @@ Link to the website - <https://healthcare-for-millennials-frontend.azurewebsites
 
 ## Demo
 
-[![demo](resources/images/thumbnail.png)](https://youtu.be/SB-F2TOchRw)
+[![demo](resources/images/thumbnail.png)](https://youtu.be/uQHUG4QDcaA)
 
 ## Templates
 
@@ -114,17 +115,31 @@ Below you can find buttons for quick deployment of services used in this app usi
 
 ### Cognitive Services
 
+[![deploy to azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fjanczarek99%2Fhealthcare-app-for-millennials%2Fmain%2Fresources%2Fazure-deploy-templates%2Fcognitive-services-healthcare-app-template.json)
+
 ### Computer Vision
+
+[![deploy to azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fjanczarek99%2Fhealthcare-app-for-millennials%2Fmain%2Fresources%2Fazure-deploy-templates%2Fhealthcare-ocr-template.json)
 
 ### Custom Vision
 
+[![deploy to azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fjanczarek99%2Fhealthcare-app-for-millennials%2Fmain%2Fresources%2Fazure-deploy-templates%2Fcustomvisionhealthcareapp-template.json)
+
 ### Custom Vision Prediction
+
+[![deploy to azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fjanczarek99%2Fhealthcare-app-for-millennials%2Fmain%2Fresources%2Fazure-deploy-templates%2Fcustomvisionhealthcareapp-Prediction-template.json)
 
 ### Container Registry
 
+[![deploy to azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fjanczarek99%2Fhealthcare-app-for-millennials%2Fmain%2Fresources%2Fazure-deploy-templates%2Fcontainer-registry-template.json)
+
 ### Container Instances
 
-[![deploy to azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fjanczarek99%2Flicense-plate-detection-and-ocr%2Fmain%2Fresources%2Fazure-deploy-templates%2Fvm-and-docker-instances-template.json)
+[![deploy to azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fjanczarek99%2Fhealthcare-app-for-millennials%2Fmain%2Fresources%2Fazure-deploy-templates%2Fcontainer-instances-template.json)
+
+### App Service
+
+[![deploy to azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fjanczarek99%2Fhealthcare-app-for-millennials%2Fmain%2Fresources%2Fazure-deploy-templates%2Fhealthcare-for-millennials-frontend.json)
 
 ## Sources
 
