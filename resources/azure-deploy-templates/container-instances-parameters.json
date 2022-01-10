@@ -1,0 +1,53 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "value": "westeurope"
+        },
+        "containerName": {
+            "value": "healthcare-app-for-millennials-api"
+        },
+        "imageType": {
+            "value": "Private"
+        },
+        "imageName": {
+            "value": "healthcareformillennials.azurecr.io/healthcare-app-for-millennials:latest"
+        },
+        "osType": {
+            "value": "Linux"
+        },
+        "numberCpuCores": {
+            "value": "1"
+        },
+        "memory": {
+            "value": "1"
+        },
+        "restartPolicy": {
+            "value": "OnFailure"
+        },
+        "imageRegistryLoginServer": {
+            "value": "healthcareformillennials.azurecr.io"
+        },
+        "imageUsername": {
+            "value": "healthcareformillennials"
+        },
+        "imagePassword": {
+            "value": null
+        },
+        "ipAddressType": {
+            "value": "Public"
+        },
+        "ports": {
+            "value": [
+                {
+                    "port": "80",
+                    "protocol": "TCP"
+                }
+            ]
+        },
+        "dnsNameLabel": {
+            "value": "healthcare-app-for-millennials-api"
+        }
+    }
+}
