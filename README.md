@@ -1,22 +1,14 @@
 # Healthcare App for Millennials
 
-- [Healthcare App for Millennials](#healthcare-app-for-millennials)
-  - [Description](#description)
-  - [Contributors](#contributors)
-  - [Tech Stack](#tech-stack)
-  - [Architecture](#architecture)
-  - [Overview](#overview)
-  - [User Guide](#user-guide)
-  - [Demo](#demo)
-  - [Templates](#templates)
-    - [Cognitive Services](#cognitive-services)
-    - [Computer Vision](#computer-vision)
-    - [Custom Vision](#custom-vision)
-    - [Custom Vision Prediction](#custom-vision-prediction)
-    - [Container Registry](#container-registry)
-    - [Container Instances](#container-instances)
-    - [App Service](#app-service)
-  - [Sources](#sources)
+- [Description](#description)
+- [Contributors](#contributors)
+- [Tech Stack](#tech-stack)
+- [Architecture](#architecture)
+- [Overview](#overview)
+- [User Guide](#user-guide)
+- [Demo](#demo)
+- [Templates](#templates)
+- [Sources](#sources)
 
 ## Description
 
